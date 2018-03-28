@@ -1,0 +1,33 @@
+address = ":8080"
+readOnly = true
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[web]
+address = ":8080"
+
+[ecs]
+clusters = ["CLUSTER_HOST"]
+watch = true
+domain = "ENVIRONMENT.DOMAIN"
+autoDiscoverClusters = false
+refreshSeconds = 15
+exposedByDefault = true
+region = "AWS_REGION"
+
+
+[acme]
+email = "EMAIL"
+storage = "acme.json"
+entryPoint = "https"
+OnHostRule = true
+[acme.httpChallenge]
+  entryPoint = "http"
