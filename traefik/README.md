@@ -7,7 +7,7 @@
 4. Touch acme.json
 5. Throw away EC2 instance
 6. Create a ECS cluster
-7. Create a launch configuration from the latest ECS ami - google it. Shoud have the following as user data:
+7. Create a launch configuration from the latest ECS ami - google it. Should have the following as user data:
 
 ```
 #!/bin/bash
