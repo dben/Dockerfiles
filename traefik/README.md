@@ -38,8 +38,9 @@ start ecs
  
 8. Create an auto scaling group - peg the number of instances for now (no scaling) 
 
-#### _Where Is This?_
-9. chmod 555 docker-entrypoint.sh
+#### Docker Build
+9. `chmod 555 docker-entrypoint.sh`
+   1. If you need to run the `docker` command in your `ecs push` step, add this line immediately before the `docker build` line so that permissions are set correctly to let everything work as expected.
 
 #### AWS Elastic Container Service
 10. Create a new docker repo for traefik, or use https://hub.docker.com/r/dben0/traefik-ecs/
