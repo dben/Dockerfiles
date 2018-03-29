@@ -45,45 +45,38 @@ start ecs
 #### AWS Elastic Container Service
 10. Create a new docker repo for traefik, or use https://hub.docker.com/r/dben0/traefik-ecs/
 11. Create a new traefik task:
-12. set the command to some variation of: "--api,--ping,--ping.entrypoint=http,--ecs.clusters=ZZZZZZ,--ecs.exposedbydefault=false,--loglevel=DEBUG"
-13. mount the volume /efs/acme.json to /acme.json
-14. set the environment variables:
-  
+    1. set the command to some variation of: "--api,--ping,--ping.entrypoint=http,--ecs.clusters=ZZZZZZ,--ecs.exposedbydefault=false,--loglevel=DEBUG"
+    2. mount the volume /efs/acme.json to /acme.json
+    3. set the environment variables
+    4. set the labels on your container (feel free to go wild!) 
+       https://github.com/containous/traefik/blob/master/docs/configuration/backends/docker.md#on-containers
+
+###### Environment Variables
 ```
-AWS_ACCESS_KEY_ID	AAAAAA
-AWS_REGION	us-east-1
+AWS_ACCESS_KEY_ID       AAAAAA
+AWS_REGION              us-east-1
 AWS_SECRET_ACCESS_KEY	BBBBBBB
-CLUSTER_HOST	ZZZZZZ
-DOMAIN	ROOT.DOMAIN
-ENVIRONMENT	staging|prod|dev (I used staging)
+CLUSTER_HOST            ZZZZZZ
+DOMAIN	               ROOT.DOMAIN
+ENVIRONMENT	            staging|prod|dev (I used staging)
 ```
 
-15. Set the labels:
+###### Labels
+```
+traefik.frontend.rule	               Host:YOUR.DOMAIN.NAME
+traefik.enable	                        true
+traefik.backend	                     UNIQUE-NAME
+traefik.frontend.redirect.entryPoint   https (optional)
+traefik.frontend.redirect.permanent    true (optional)
+```
 
-```
-traefik.frontend.rule	Host:YOUR.TRAEFIK.DOMAIN
-traefik.enable	true
-traefik.port	8080
-```
-
-#### AWS Route53
-16: Update route 53 to round robin all autoscaling containers 
-
-#### AWS Elastic Container Service
-17. Go wild with labels on your container: https://github.com/containous/traefik/blob/master/docs/configuration/backends/docker.md#on-containers
- 
-```
-traefik.frontend.rule	Host:YOUR.DOMAIN.NAME
-traefik.enable	true
-traefik.backend	UNIQUE-NAME
-traefik.frontend.redirect.entryPoint=https (optional)
-traefik.frontend.redirect.permanent=true (optional)
-```
+12. remove the host port on your container, and launch it in a service. Traefik will scale across containers on any instance 
   
-18. remove the host port on your container, and launch it in a service. Traefik will scale across containers on any instance 
+#### AWS Route53
+13: Update route 53 to round robin all autoscaling containers 
   
 #### AWS Lambda
-19. Future task: lambda to update route 53 when autoscaling occurs. 
+14. Future task: lambda to update route 53 when autoscaling occurs. 
 
 #### AWS Elastic Container Service
-20. Future task: switch to using a container task role instead of a key
+15. Future task: switch to using a container task role instead of a key
