@@ -5,8 +5,8 @@
 2. Attach a security group to EFS 
 3. Mount the EFS drive to a disposable EC2 instance that allows all connections from the EFS security group
    1. Install the nfs client on your EC2 instance
-      ~ On an Amazon Linux, Red Hat Enterprise Linux, or SuSE Linux instance: `sudo yum install -y nfs-utils`
-      ~ On an Ubuntu instance: `sudo apt-get install nfs-common`
+      1. On an Amazon Linux, Red Hat Enterprise Linux, or SuSE Linux instance: `sudo yum install -y nfs-utils`
+      2. On an Ubuntu instance: `sudo apt-get install nfs-common`
    2. Create a new directory on your EC2 instance, such as `efs` by running `mkdir efs`
    3. Mount your file system using the DNS name
       `sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 XXXXXX.efs.us-east-2.amazonaws.com:/ efs`
