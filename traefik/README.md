@@ -1,8 +1,11 @@
 # How to set up traefik
-## there may be some redundant labels / env vars
+__Note that there may be some redundant labels / env vars__
 
+#### AWS Elastic File System
 1. Create a EFS drive.
 2. Attach a security group to EFS 
+
+#### AWS Elastic Cloud Compute
 3. Mount the EFS drive to a disposable EC2 instance that allows all connections from the EFS security group
    1. Install the nfs client on your EC2 instance
       1. On an Amazon Linux, Red Hat Enterprise Linux, or SuSE Linux instance: `sudo yum install -y nfs-utils`
@@ -12,7 +15,11 @@
       `sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 XXXXXX.efs.us-east-2.amazonaws.com:/ efs`
 4. Touch acme.json
 5. Throw away EC2 instance
+
+#### AWS Elastic Container Service
 6. Create a ECS cluster
+
+#### AWS Elastic Cloud Compute
 7. Create a launch configuration from the latest ECS ami - google it. Should have the following as user data:
 
 ```
@@ -28,7 +35,11 @@ start ecs
 ```
  
 8. Create an auto scaling group - peg the number of instances for now (no scaling) 
+
+#### _Where Is This?_
 9. chmod 555 docker-entrypoint.sh
+
+#### AWS Elastic Container Service
 10. Create a new docker repo for traefik, or use https://hub.docker.com/r/dben0/traefik-ecs/
 11. Create a new traefik task:
 12. set the command to some variation of: "--api,--ping,--ping.entrypoint=http,--ecs.clusters=ZZZZZZ,--ecs.exposedbydefault=false,--loglevel=DEBUG"
@@ -52,8 +63,10 @@ traefik.enable	true
 traefik.port	8080
 ```
 
+#### AWS Route53
 16: Update route 53 to round robin all autoscaling containers 
- 
+
+#### AWS Elastic Container Service
 17. Go wild with labels on your container: https://github.com/containous/traefik/blob/master/docs/configuration/backends/docker.md#on-containers
  
 ```
@@ -66,6 +79,8 @@ traefik.frontend.redirect.permanent=true (optional)
   
 18. remove the host port on your container, and launch it in a service. Traefik will scale across containers on any instance 
   
+#### AWS Lambda
 19. Future task: lambda to update route 53 when autoscaling occurs. 
- 
+
+#### AWS Elastic Container Service
 20. Future task: switch to using a container task role instead of a key
