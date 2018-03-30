@@ -19,7 +19,7 @@ _Note that there may be some redundant labels / env vars_
 5. Touch acme.json
 6. Throw away EC2 instance
 7. Create a launch configuration from the latest ECS AMI. Should have the following snippet as user data.
-   1. "ZZZZZZ" should be replaced by the ECS Cluster name from the cluster created in step 6.
+   1. "ZZZZZZ" should be replaced by the ECS Cluster name from the cluster created in step 3.
    2. "XXXXXX" should be replaced by the first part of the EFS DNS name from the file system created in step 1.
 
 ```
