@@ -1,26 +1,24 @@
 # How to set up traefik
-__Note that there may be some redundant labels / env vars__
+_Note that there may be some redundant labels / env vars_
 
 #### AWS Elastic File System
 1. Create a EFS drive.
 2. Attach a security group to EFS 
 
+#### AWS Elastic Container Service
+3. Create an ECS cluster
+
 #### AWS Elastic Cloud Compute
-3. Mount the EFS drive to a disposable EC2 instance that allows all connections from the EFS security group
+4. Mount the EFS drive to a disposable EC2 instance that allows all connections from the EFS security group
    1. Install the nfs client on your EC2 instance
       1. On an Amazon Linux, Red Hat Enterprise Linux, or SuSE Linux instance: `sudo yum install -y nfs-utils`
       2. On an Ubuntu instance: `sudo apt-get install nfs-common`
    2. Create a new directory on your EC2 instance, such as `efs` by running `mkdir efs`
    3. Mount your file system using the DNS name
       `sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 XXXXXX.efs.us-east-2.amazonaws.com:/ efs`
-4. Touch acme.json
-5. Throw away EC2 instance
-
-#### AWS Elastic Container Service
-6. Create a ECS cluster
-
-#### AWS Elastic Cloud Compute
-7. Create a launch configuration from the latest ECS ami - google it. Should have the following snippet as user data.
+5. Touch acme.json
+6. Throw away EC2 instance
+7. Create a launch configuration from the latest ECS AMI. Should have the following snippet as user data.
    1. "ZZZZZZ" should be replaced by the ECS Cluster name from the cluster created in step 6.
    2. "XXXXXX" should be replaced by the first part of the EFS DNS name from the file system created in step 1.
 
