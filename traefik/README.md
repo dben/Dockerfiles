@@ -73,7 +73,7 @@ traefik.frontend.redirect.permanent    true (optional)
 12. remove the host port on your container, and launch it in a service. Traefik will scale across containers on any instance 
   
 #### AWS Route53
-13: Update route 53 to round robin all autoscaling containers 
+13. Update route 53 to round robin all autoscaling containers 
   
 #### AWS Lambda
 14. Future task: lambda to update route 53 when autoscaling occurs. 
