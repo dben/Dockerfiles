@@ -34,8 +34,8 @@
 
 #### AWS Elastic Cloud Compute
 5. Create a launch configuration from the latest ECS AMI. Should have the following snippet as user data.
-   1. "<ECS-CLUSER-NAME>" should be replaced by the ECS Cluster name from the cluster created in step 3.
-   2. "<EFS-URL>" should be replaced by the first part of the EFS DNS name from the file system created in step 1.
+   1. <ECS-CLUSER-NAME> should be replaced by the ECS Cluster name from the cluster created in step 3.
+   2. <EFS-URL> should be replaced by the first part of the EFS DNS name from the file system created in step 1.
 
 ```
 #!/bin/bash
@@ -56,8 +56,8 @@ start ecs
    1. Use dben0/traefik-ecs for the latest version of this repository
    2. Or, to build your own version, run `chmod 555 docker-entrypoint.sh` to ensure permissions are correct, and then build and push to your own repository
    3. Set a soft limit on the memory od between 100-500MB
-   3. Pass through ports 80, 8080, and 443
-   4. Set the command to some variation of:
+   4. Pass through ports 80, 8080, and 443
+   5. Set the command to some variation of:
     ```
       --api,--ping,--ping.entrypoint=http, --loglevel=DEBUG
     ```
@@ -69,8 +69,8 @@ start ecs
     
     `  --loglevel:         sets log level`
 
-   5. mount the volume /efs/acme.json to /acme.json
-   6. set the environment variables
+   6. mount the volume /efs/acme.json to /acme.json
+   7. set the environment variables
     ```
     AWS_ACCESS_KEY_ID	<AWS-ACCESS-KEY>
     AWS_REGION	<AWS-REGION (us-east-1)>
@@ -80,7 +80,7 @@ start ecs
     ENVIRONMENT	default subdomain name
     EMAIL letsencrypt email address
     ```
-   7. set the labels on your container (feel free to go wild!) 
+   8. set the labels on your container (feel free to go wild!) 
        https://github.com/containous/traefik/blob/master/docs/configuration/backends/docker.md#on-containers
     ```
     traefik.frontend.rule	Host:<YOUR.TRAEFIK.URL> (optional)
