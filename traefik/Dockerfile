@@ -1,4 +1,4 @@
-FROM      traefik:v1.6-alpine
+FROM      traefik:v1.7-alpine
 
 COPY      traefik_ecs.toml /etc/traefik/traefik.toml
 
