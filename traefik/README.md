@@ -48,8 +48,9 @@ mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=
 service docker restart
 start ecs
 ```
- 
-6. Create an auto scaling group - peg the number of instances for now (no scaling) 
+6. Ensure the instance has an IAM role with the AmazonEC2ContainerServiceforEC2Role policy
+
+7. Create an auto scaling group - peg the number of instances for now (no scaling) 
 
 #### AWS Elastic Container Service
 7. Create a new ECS task for traefik
